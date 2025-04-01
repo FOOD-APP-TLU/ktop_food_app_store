@@ -68,7 +68,8 @@ public class LoginActivity extends AppCompatActivity {
 
     private void handleForgotPassword() {
         binding.txtForgotPassword.setOnClickListener(v -> {
-            Toast.makeText(this, "Chuyển hướng đến trang quên mật khẩu", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(LoginActivity.this, ForgotPasswordActivity.class);
+            startActivity(intent);
         });
     }
 
