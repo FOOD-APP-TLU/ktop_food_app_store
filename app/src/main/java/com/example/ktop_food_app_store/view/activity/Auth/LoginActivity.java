@@ -30,6 +30,7 @@ public class LoginActivity extends AppCompatActivity {
         handleLogin();
         handleVisibilityToggle();
         handleTextWatchers();
+        handleForgotPassword();
     }
 
     private void checkActive() {
@@ -44,13 +45,8 @@ public class LoginActivity extends AppCompatActivity {
 
     private void handleLogin() {
         binding.btnLogin.setOnClickListener(v -> {
-            String email = binding.edtUsername.getText().toString().trim();
-            String password = binding.edtPassword.getText().toString().trim();
-
             if (validateLogin()) {
                 Toast.makeText(this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
-            } else {
-                Toast.makeText(this, "Đăng nhập thất bại: Email hoặc mật khẩu không đúng", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -67,6 +63,12 @@ public class LoginActivity extends AppCompatActivity {
 
             binding.edtPassword.setSelection(binding.edtPassword.getText().length());
             isPasswordVisible = !isPasswordVisible;
+        });
+    }
+
+    private void handleForgotPassword() {
+        binding.txtForgotPassword.setOnClickListener(v -> {
+            Toast.makeText(this, "Chuyển hướng đến trang quên mật khẩu", Toast.LENGTH_SHORT).show();
         });
     }
 
