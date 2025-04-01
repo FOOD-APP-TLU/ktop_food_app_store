@@ -8,6 +8,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.ktop_food_app_store.databinding.ActivityOnboardingBinding;
+import com.example.ktop_food_app_store.view.activity.Auth.LoginActivity;
 
 public class OnboardingActivity extends AppCompatActivity {
     private ActivityOnboardingBinding binding;
@@ -23,7 +24,8 @@ public class OnboardingActivity extends AppCompatActivity {
 
     private void handleLogin() {
         binding.btnLogin.setOnClickListener(v -> {
-            Toast.makeText(OnboardingActivity.this, "Vui lòng nhập đầy đủ thông tin!", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
         });
     }
 }

@@ -13,6 +13,9 @@
         android:theme="@style/Theme.Ktop_food_app_store"
         tools:targetApi="31">
         <activity
+            android:name=".view.activity.Auth.LoginActivity"
+            android:exported="false" />
+        <activity
             android:name=".view.activity.OnboardingActivity"
             android:exported="true">
             <intent-filter>
@@ -21,6 +24,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
