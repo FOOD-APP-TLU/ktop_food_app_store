@@ -3,11 +3,11 @@
 
 <!-- GETTING STARTED -->
 
-### 🚀 Getting Started  
+### 🚀 Getting Started
 
 Running follow these simple example steps below
-
 ## 🎯 Prerequisites
+
 - [Android Studio](https://developer.android.com/studio)
 - A virtual device (Emulator) or a physical device with **USB Debugging** enabled
 
