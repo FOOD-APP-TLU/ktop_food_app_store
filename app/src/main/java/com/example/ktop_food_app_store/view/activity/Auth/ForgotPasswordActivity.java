@@ -12,15 +12,21 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.ktop_food_app_store.utils.AuthValidator;
 import com.example.ktop_food_app_store.R;
 import com.example.ktop_food_app_store.databinding.ActivityForgotPasswordBinding;
+import com.example.ktop_food_app_store.model.data.remote.FirebaseAuthData;
+import com.example.ktop_food_app_store.model.repository.AuthRepository;
 
 public class ForgotPasswordActivity extends AppCompatActivity {
     private ActivityForgotPasswordBinding binding;
     private AuthValidator.OnValidationError validationErrorCallback;
+    private AuthRepository authRepository; // Thêm AuthRepository
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
+
+        // Khởi tạo AuthRepository
+        authRepository = new AuthRepository(new FirebaseAuthData());
 
         binding = ActivityForgotPasswordBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -57,10 +63,32 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         binding.btnSendCode.setOnClickListener(v -> {
             if (validateSendCode()) {
                 String email = binding.txtEmail.getText().toString().trim();
-                Intent intent = new Intent(ForgotPasswordActivity.this, LoginActivity.class);
-                startActivity(intent);
+                sendPasswordResetEmail(email);
             }
         });
+    }
+
+    private void sendPasswordResetEmail(String email) {
+        authRepository.sendPasswordResetEmail(email)
+                .addOnCompleteListener(this, task -> {
+                    if (task.isSuccessful()) {
+                        // Gửi email thành công
+                        Toast.makeText(ForgotPasswordActivity.this,
+                                "Email đặt lại mật khẩu đã được gửi đến " + email,
+                                Toast.LENGTH_LONG).show();
+
+                        // Chuyển về LoginActivity
+                        Intent intent = new Intent(ForgotPasswordActivity.this, LoginActivity.class);
+                        intent.putExtra("email", email); // Truyền email về LoginActivity nếu cần
+                        startActivity(intent);
+                        finish();
+                    } else {
+                        // Gửi email thất bại
+                        Toast.makeText(ForgotPasswordActivity.this,
+                                "Lỗi khi gửi email: " + task.getException().getMessage(),
+                                Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 
     private boolean validateSendCode() {

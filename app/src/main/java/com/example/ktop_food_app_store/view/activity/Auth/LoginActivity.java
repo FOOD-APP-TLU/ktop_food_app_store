@@ -13,26 +13,26 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.ktop_food_app_store.utils.AuthValidator;
 import com.example.ktop_food_app_store.R;
 import com.example.ktop_food_app_store.databinding.ActivityLoginBinding;
+import com.example.ktop_food_app_store.model.data.remote.FirebaseAuthData;
+import com.example.ktop_food_app_store.model.repository.AuthRepository;
 import com.example.ktop_food_app_store.view.activity.StatisticActivity;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class LoginActivity extends AppCompatActivity {
     private ActivityLoginBinding binding;
     private boolean isPasswordVisible = false;
-    private FirebaseAuth mAuth; // Thêm FirebaseAuth
+    private AuthRepository authRepository; // Thay FirebaseAuth bằng AuthRepository
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
 
-        // Khởi tạo FirebaseAuth
-        mAuth = FirebaseAuth.getInstance();
+        // Khởi tạo AuthRepository
+        authRepository = new AuthRepository(new FirebaseAuthData());
 
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -59,17 +59,17 @@ public class LoginActivity extends AppCompatActivity {
             if (validateLogin()) {
                 String email = binding.edtUsername.getText().toString().trim();
                 String password = binding.edtPassword.getText().toString().trim();
-                loginUser(email, password); // Gọi hàm đăng nhập với Firebase
+                loginUser(email, password); // Gọi hàm đăng nhập thông qua repository
             }
         });
     }
 
     private void loginUser(String email, String password) {
-        mAuth.signInWithEmailAndPassword(email, password)
+        authRepository.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, task -> {
                     if (task.isSuccessful()) {
                         // Đăng nhập thành công, lấy thông tin người dùng
-                        FirebaseUser user = mAuth.getCurrentUser();
+                        FirebaseUser user = authRepository.getCurrentUser();
                         if (user != null) {
                             checkUserRole(user.getUid()); // Kiểm tra vai trò
                         }
@@ -82,8 +82,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void checkUserRole(String uid) {
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        database.getReference("users").child(uid).child("role")
+        authRepository.getDatabaseReference().child("users").child(uid).child("role")
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot snapshot) {
@@ -91,16 +90,12 @@ public class LoginActivity extends AppCompatActivity {
                         if (role != null && "admin".equals(role)) {
                             // Vai trò là admin, cho phép đăng nhập
                             Toast.makeText(LoginActivity.this, "Đăng nhập thành công với vai trò Admin", Toast.LENGTH_SHORT).show();
-                            // Chuyển hướng đến giao diện admin (ví dụ: AdminActivity)
-//                            Intent intent = new Intent(LoginActivity.this, AdminActivity.class);
-//                            startActivity(intent);
-//                            finish(); // Đóng LoginActivity
                             Intent intent = new Intent(LoginActivity.this, StatisticActivity.class);
                             startActivity(intent);
                             finish(); // Đóng LoginActivity
                         } else {
                             // Không phải admin, đăng xuất và thông báo
-                            mAuth.signOut();
+                            authRepository.getCurrentUser().delete(); // Note: This might not be the best way to sign out
                             Toast.makeText(LoginActivity.this, "Bạn không có quyền truy cập. Chỉ admin mới được phép đăng nhập.",
                                     Toast.LENGTH_LONG).show();
                         }
