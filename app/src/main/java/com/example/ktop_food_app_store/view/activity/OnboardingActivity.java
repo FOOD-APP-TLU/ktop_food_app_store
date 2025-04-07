@@ -31,9 +31,21 @@ public class OnboardingActivity extends AppCompatActivity {
 
         binding = ActivityOnboardingBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        mAuth = FirebaseAuth.getInstance();
+
+        // Kiểm tra nếu người dùng đã đăng nhập
+        if (mAuth.getCurrentUser() != null) {
+            Intent intent = new Intent(OnboardingActivity.this, AddItemActivity.class);
+            startActivity(intent);
+            finish();
+            return;
+        }
+
         handleLogin();
 
     }
+
 
     private void handleLogin() {
         binding.btnLogin.setOnClickListener(v -> {

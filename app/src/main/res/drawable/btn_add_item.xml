@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Trạng thái khi nhấn -->
+    <item android:state_pressed="true">
+        <shape android:shape="rectangle">
+            <solid android:color="#E64A19" /> <!-- Màu cam đậm khi nhấn -->
+            <corners android:radius="16dp" />
+            <padding
+                android:left="16dp"
+                android:top="12dp"
+                android:right="16dp"
+                android:bottom="12dp" />
+        </shape>
+    </item>
+
+    <!-- Trạng thái mặc định -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="#FF5722" /> <!-- Màu cam -->
+            <corners android:radius="16dp" />
+            <padding
+                android:left="16dp"
+                android:top="12dp"
+                android:right="16dp"
+                android:bottom="12dp" />
+        </shape>
+    </item>
+
+</selector>

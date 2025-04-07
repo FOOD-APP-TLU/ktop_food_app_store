@@ -13,7 +13,7 @@
         android:theme="@style/Theme.Ktop_food_app_store"
         tools:targetApi="31">
         <activity
-            android:name=".view.activity.HomeActivity"
+            android:name=".view.activity.AddItemActivity"
             android:exported="false" />
         <activity
             android:name=".view.activity.StatisticActivity"
