@@ -39,7 +39,7 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         binding = ActivityNavHomeBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot()); // Giữ nguyên binding.getRoot() như code gốc
+        setContentView(binding.getRoot());
 
         headerBinding = NavHeaderBinding.bind(binding.navView.getHeaderView(0));
 
@@ -99,7 +99,8 @@ public class HomeActivity extends AppCompatActivity {
             } else if (itemId == R.id.nav_track_order) {
                 Toast.makeText(HomeActivity.this, "Chuyen den trang Track Order", Toast.LENGTH_SHORT).show();
             } else if (itemId == R.id.nav_order_history) {
-                Toast.makeText(HomeActivity.this, "Chuyen den trang Order History", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(HomeActivity.this, OrderHistoryActivity.class );
+                startActivity(intent);
             }
             else if (itemId == R.id.nav_revenue_statistics) {
                 Intent intent = new Intent(HomeActivity.this, StatisticActivity.class );
