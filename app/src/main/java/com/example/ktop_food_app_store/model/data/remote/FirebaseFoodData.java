@@ -17,7 +17,8 @@ public class FirebaseFoodData {
     private DatabaseReference databaseReference;
 
     public FirebaseFoodData() {
-        databaseReference = FirebaseDatabase.getInstance("https://ktop-food-database-default-rtdb.asia-southeast1.firebasedatabase.app")
+        databaseReference = FirebaseDatabase
+                .getInstance("https://ktop-food-database-default-rtdb.asia-southeast1.firebasedatabase.app")
                 .getReference("foods");
     }
 
@@ -41,7 +42,7 @@ public class FirebaseFoodData {
                 List<Food> foodList = new ArrayList<>();
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     Food food = dataSnapshot.getValue(Food.class);
-                    if (food != null && food.getCategoryId() == 7) { // Lọc danh mục Chicken (categoryId = 7)
+                    if (food != null ) {
                         foodList.add(food);
                     }
                 }
@@ -74,7 +75,7 @@ public class FirebaseFoodData {
                             callback.onError(task.getException().getMessage());
                         }
                     });
-                    break; // Chỉ xóa node đầu tiên tìm thấy (foodId nên là duy nhất)
+                    break;
                 }
             }
 
