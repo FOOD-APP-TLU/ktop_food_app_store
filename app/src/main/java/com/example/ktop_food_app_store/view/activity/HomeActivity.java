@@ -94,14 +94,16 @@ public class HomeActivity extends AppCompatActivity {
         binding.navView.setNavigationItemSelectedListener(item -> {
             int itemId = item.getItemId();
             if (itemId == R.id.nav_add_item) {
-                Toast.makeText(HomeActivity.this, "Chuyen den trang Add Item", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(HomeActivity.this, AddItemActivity.class );
+                startActivity(intent);
             } else if (itemId == R.id.nav_track_order) {
                 Toast.makeText(HomeActivity.this, "Chuyen den trang Track Order", Toast.LENGTH_SHORT).show();
             } else if (itemId == R.id.nav_order_history) {
                 Toast.makeText(HomeActivity.this, "Chuyen den trang Order History", Toast.LENGTH_SHORT).show();
             }
             else if (itemId == R.id.nav_revenue_statistics) {
-                Toast.makeText(HomeActivity.this, "Chuyen den trang Revenue Statistics", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(HomeActivity.this, StatisticActivity.class );
+                startActivity(intent);
             }
             binding.drawerLayout.closeDrawer(GravityCompat.START);
             return true;

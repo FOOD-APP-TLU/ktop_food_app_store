@@ -18,6 +18,8 @@ public class OnboardingActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        binding = ActivityOnboardingBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -29,21 +31,7 @@ public class OnboardingActivity extends AppCompatActivity {
             return;
         }
 
-        binding = ActivityOnboardingBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
-
-        mAuth = FirebaseAuth.getInstance();
-
-        // Kiểm tra nếu người dùng đã đăng nhập
-        if (mAuth.getCurrentUser() != null) {
-            Intent intent = new Intent(OnboardingActivity.this, AddItemActivity.class);
-            startActivity(intent);
-            finish();
-            return;
-        }
-
         handleLogin();
-
     }
 
 
