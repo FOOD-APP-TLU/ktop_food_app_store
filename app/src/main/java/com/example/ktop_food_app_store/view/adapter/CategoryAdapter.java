@@ -14,6 +14,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.ktop_food_app_store.model.data.entity.Category;
 import com.example.ktop_food_app_store.databinding.ItemCategoryBinding;
+import com.example.ktop_food_app_store.view.activity.FoodListActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -83,9 +84,9 @@ public class CategoryAdapter extends ArrayAdapter<Category> {
         // Xử lý sự kiện click
         binding.getRoot().setOnClickListener(v -> {
             Log.d("CategoryAdapter", "Clicked on category: " + category.getName());
-//            Intent intent = new Intent(context, FoodListActivity.class);
-//            intent.putExtra("category", category);
-//            context.startActivity(intent);
+            Intent intent = new Intent(context, FoodListActivity.class);
+            intent.putExtra("category", category);
+            context.startActivity(intent);
         });
 
         return convertView;

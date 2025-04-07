@@ -3,6 +3,7 @@ package com.example.ktop_food_app_store.view.activity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
@@ -12,6 +13,9 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.example.ktop_food_app_store.R;
 import com.example.ktop_food_app_store.databinding.ActivityAddItemBinding;
 import com.example.ktop_food_app_store.model.repository.AddItemRepository;
@@ -99,18 +103,61 @@ public class AddItemActivity extends AppCompatActivity {
 
     private void handleImagePreview() {
         String imageUrl = binding.urlImageEditText.getText().toString().trim();
-        if (!imageUrl.isEmpty()) {
-            binding.imagePreview.setVisibility(View.VISIBLE);
-            Glide.with(this)
-                    .load(imageUrl)
-                    .diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .placeholder(R.drawable.logo_single)
-                    .error(R.drawable.logo_single)
-                    .into(binding.imagePreview);
-        } else {
+
+        // Kiểm tra xem URL có rỗng không
+        if (imageUrl.isEmpty()) {
+            binding.urlImageEditText.setError("Please enter an image URL");
             binding.imagePreview.setImageResource(R.drawable.logo_single);
-            Toast.makeText(this, "Please enter a valid image URL", Toast.LENGTH_SHORT).show();
+            viewModel.setUrlImage(""); // Không chấp nhận URL rỗng
+            return;
         }
+
+        // Kiểm tra định dạng URL
+        if (!isValidUrl(imageUrl)) {
+            binding.urlImageEditText.setError("Invalid URL format");
+            binding.imagePreview.setImageResource(R.drawable.logo_single);
+            viewModel.setUrlImage(""); // Không chấp nhận URL không hợp lệ
+            Toast.makeText(this, "Please enter a valid image URL", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        // Nếu URL hợp lệ, thử tải ảnh
+        binding.imagePreview.setVisibility(View.VISIBLE);
+        Glide.with(this)
+                .load(imageUrl)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .placeholder(R.drawable.logo_single)
+                .error(R.drawable.logo_single) // Hiển thị placeholder nếu tải ảnh thất bại
+                .transition(DrawableTransitionOptions.withCrossFade())
+                .listener(new RequestListener<android.graphics.drawable.Drawable>() {
+                    @Override
+                    public boolean onLoadFailed(com.bumptech.glide.load.engine.GlideException e, Object model, Target<android.graphics.drawable.Drawable> target, boolean isFirstResource) {
+                        // Nếu tải ảnh thất bại, hiển thị lỗi và không chấp nhận URL
+                        binding.urlImageEditText.setError("Failed to load image from URL");
+                        binding.imagePreview.setImageResource(R.drawable.logo_single);
+                        viewModel.setUrlImage(""); // Không chấp nhận URL không tải được ảnh
+                        Toast.makeText(AddItemActivity.this, "Failed to load image. Please check the URL.", Toast.LENGTH_SHORT).show();
+                        return false;
+                    }
+
+                    @Override
+                    public boolean onResourceReady(android.graphics.drawable.Drawable resource, Object model, Target<android.graphics.drawable.Drawable> target, com.bumptech.glide.load.DataSource dataSource, boolean isFirstResource) {
+                        // Nếu tải ảnh thành công, chấp nhận URL
+                        viewModel.setUrlImage(imageUrl);
+                        return false;
+                    }
+                })
+                .into(binding.imagePreview);
+    }
+
+    // Hàm kiểm tra định dạng URL
+    private boolean isValidUrl(String url) {
+        // Kiểm tra xem URL có bắt đầu bằng http:// hoặc https:// không
+        if (url == null) {
+            return false;
+        }
+        // Sử dụng Patterns.WEB_URL để kiểm tra định dạng URL
+        return Patterns.WEB_URL.matcher(url).matches() && (url.startsWith("http://") || url.startsWith("https://"));
     }
 
     private void observeViewModel() {
@@ -173,7 +220,8 @@ public class AddItemActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                viewModel.setUrlImage(s.toString());
+                // Không tự động cập nhật URL vào ViewModel ở đây
+                // Chỉ cập nhật khi URL được xác nhận hợp lệ trong handleImagePreview()
             }
 
             @Override
@@ -192,6 +240,7 @@ public class AddItemActivity extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable s) {}
         });
+
         binding.timeSpinner.setOnItemSelectedListener(new android.widget.AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(android.widget.AdapterView<?> parent, View view, int position, long id) {
@@ -203,6 +252,7 @@ public class AddItemActivity extends AppCompatActivity {
                 viewModel.setTime("Select Time");
             }
         });
+
         binding.categorySpinner.setOnItemSelectedListener(new android.widget.AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(android.widget.AdapterView<?> parent, View view, int position, long id) {

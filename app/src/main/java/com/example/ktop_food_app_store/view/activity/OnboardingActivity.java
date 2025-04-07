@@ -25,7 +25,7 @@ public class OnboardingActivity extends AppCompatActivity {
 
         // Kiểm tra nếu người dùng đã đăng nhập
         if (mAuth.getCurrentUser() != null) {
-            Intent intent = new Intent(OnboardingActivity.this, HomeActivity.class);
+            Intent intent = new Intent(OnboardingActivity.this, FoodListActivity.class);
             startActivity(intent);
             finish();
             return;

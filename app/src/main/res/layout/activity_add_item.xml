@@ -14,29 +14,33 @@
         android:gravity="center_vertical"
         android:padding="16dp">
 
-        <ImageButton
+        <ImageView
             android:id="@+id/back_button"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:background="?android:attr/selectableItemBackground"
-            android:contentDescription="Back"
-            android:scaleType="centerInside"
-            android:src="@drawable/ic_back_arrow" />
+            android:layout_width="44dp"
+            android:layout_height="35dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="5dp"
+            android:src="@drawable/ic_back_arrow"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="#000000" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="80dp"
+            android:layout_marginStart="56dp"
+
             android:fontFamily="@font/annapurna_sil"
             android:text="Add Item"
             android:textColor="#884F04"
-            android:textStyle="bold"
-            android:textSize="32sp" />
+            android:textSize="32sp"
+            android:textStyle="bold" />
     </LinearLayout>
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:scrollbars="none">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -112,7 +116,7 @@
                 android:id="@+id/image_preview"
                 android:layout_width="200dp"
                 android:layout_height="200dp"
-                android:layout_marginStart="80dp"
+                android:layout_marginStart="75dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/logo_single"
                 android:visibility="visible"
