@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="130dp"
     android:orientation="horizontal"
@@ -14,11 +15,12 @@
     <!-- Food Image -->
     <ImageView
         android:id="@+id/food_image"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:layout_gravity="center_vertical"
         android:scaleType="centerCrop"
-        android:src="@android:drawable/ic_menu_gallery"
+        android:layout_marginLeft="8dp"
+        android:src="@drawable/friedchickend"
         android:background="@drawable/rounded_image"
         android:clipToOutline="true" />
 
@@ -45,7 +47,7 @@
             android:maxLines="2"
             android:text="Chicken Mozza "
             android:textColor="#8B4513"
-            android:textSize="22sp"
+            android:textSize="18sp"
             android:textStyle="bold" />
 
         <!-- Price -->
@@ -57,7 +59,7 @@
             android:fontFamily="@font/annapurna_sil"
             android:text="80.000 đ"
             android:textColor="#FF0000"
-            android:textSize="14sp" />
+            android:textSize="16sp" />
 
         <!-- Time -->
         <LinearLayout
@@ -72,12 +74,13 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/annapurna_sil"
                 android:text="5-10 min"
+                android:layout_gravity="center_vertical"
                 android:textColor="#808080"
-                android:textSize="12sp" />
+                android:textSize="14sp" />
 
             <ImageView
-                android:layout_width="16dp"
-                android:layout_height="16dp"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
                 android:layout_marginStart="4dp"
                 android:layout_marginTop="6dp"
                 android:src="@drawable/time_icon" />
@@ -104,7 +107,8 @@
             android:text="Edit"
             android:textColor="#8B4513"
             android:textSize="8dp"
-            app:backgroundTint="@null" />
+            app:backgroundTint="@null"
+            tools:ignore="TextSizeCheck" />
 
         <Button
             android:id="@+id/delete_button"
@@ -116,7 +120,8 @@
             android:text="Delete"
             android:textColor="#FF0000"
             android:textSize="8dp"
-            app:backgroundTint="@null" />
+            app:backgroundTint="@null"
+            tools:ignore="TextSizeCheck" />
 
     </LinearLayout>
 </LinearLayout>
