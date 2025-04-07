@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="#FFF1E2">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingBottom="16dp">
+
+        <ImageButton
+            android:id="@+id/back_button"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="?android:attr/selectableItemBackground"
+            android:contentDescription="Back"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_back_arrow" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="80dp"
+            android:fontFamily="@font/annapurna_sil"
+            android:text="Add Item"
+            android:textColor="#884F04"
+            android:textSize="32sp" />
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="50dp"
+            android:layout_marginTop="3dp"
+            android:background="#FFF1E2"
+            android:elevation="0dp"
+            android:orientation="vertical"
+            android:padding="3dp">
+
+            <EditText
+                android:id="@+id/item_name_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="61dp"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/edit_text_background"
+                android:fontFamily="@font/annapurna_sil"
+                android:hint="Item Name"
+                android:padding="15dp"
+                android:textColorHint="#80B57E35"
+                android:textSize="20dp" />
+
+            <EditText
+                android:id="@+id/item_price_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="61dp"
+                android:layout_marginTop="2dp"
+                android:background="@drawable/edit_text_background"
+                android:hint="Item Price"
+                android:fontFamily="@font/annapurna_sil"
+                android:textColorHint="#80B57E35"
+                android:textSize="20dp"
+                android:padding="10dp" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="90dp"
+                android:layout_marginTop="0dp">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginTop="26dp">
+
+                    <EditText
+                        android:id="@+id/url_image_edit_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:background="@drawable/edit_text_background"
+                        android:ems="10"
+                        android:fontFamily="@font/annapurna_sil"
+                        android:hint="URL Image"
+                        android:paddingLeft="16dp"
+                        android:paddingRight="40dp"
+                        android:textColor="@color/text_color_secondary"
+                        android:textColorHint="#80B57E35"
+                        android:textSize="20sp" />
+
+                    <ImageView
+                        android:id="@+id/url_image_icon"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_gravity="end|center_vertical"
+                        android:layout_marginEnd="10dp"
+                        android:src="@drawable/ic_add" />
+
+                </FrameLayout>
+
+            </FrameLayout>
+
+            <ImageView
+                android:id="@+id/image_preview"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_marginStart="80dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/logo_single"
+                android:visibility="visible"
+                android:background="@drawable/rounded_image_background"
+                android:clipToOutline="true" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:layout_marginTop="32dp"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Time"
+                        android:fontFamily="@font/annapurna_sil"
+                        android:textColor="#884F04"
+                        android:textSize="24sp" />
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:layout_marginTop="0dp">
+
+                        <FrameLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="60dp"
+                            android:layout_marginTop="0dp">
+
+                            <Spinner
+                                android:id="@+id/time_spinner"
+                                android:layout_width="match_parent"
+                                android:layout_height="48dp"
+                                android:background="@drawable/spinner_background"
+                                android:fontFamily="@font/annapurna_sil"
+                                android:scaleType="centerInside"
+                                android:paddingRight="40dp" />
+
+                            <ImageView
+                                android:id="@+id/time_icon"
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:layout_gravity="end|center_vertical"
+                                android:layout_marginEnd="15dp"
+                                android:layout_marginBottom="5dp"
+                                android:src="@drawable/arrow_down" />
+
+                        </FrameLayout>
+
+                    </FrameLayout>
+
+                    <TextView
+                        android:id="@+id/time_error_text_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="#FF0000"
+                        android:textSize="12sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/annapurna_sil"
+                        android:text="Category"
+                        android:textColor="#884F04"
+                        android:textSize="24sp" />
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:layout_marginTop="0dp">
+
+                        <FrameLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="60dp"
+                            android:layout_marginTop="0dp">
+
+                            <Spinner
+                                android:id="@+id/category_spinner"
+                                android:layout_width="match_parent"
+                                android:layout_height="49dp"
+                                android:background="@drawable/spinner_background"
+                                android:fontFamily="@font/annapurna_sil"
+                                android:paddingRight="40dp" />
+
+                            <ImageView
+                                android:id="@+id/category_icon"
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:layout_gravity="end|center_vertical"
+                                android:layout_marginEnd="10dp"
+                                android:layout_marginBottom="5dp"
+                                android:src="@drawable/arrow_down" />
+
+                        </FrameLayout>
+
+                    </FrameLayout>
+
+                    <TextView
+                        android:id="@+id/category_error_text_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="#FF0000"
+                        android:textSize="12sp" />
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <EditText
+                android:id="@+id/description_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/edit_text_background"
+                android:gravity="top"
+                android:hint="Description"
+                android:textColorHint="#80B57E35"
+                android:fontFamily="@font/annapurna_sil"
+                android:padding="15dp" />
+
+            <Button
+                android:id="@+id/add_item_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/custom_bg_default"
+                android:fontFamily="@font/annapurna_sil"
+                android:layout_marginTop="30dp"
+                android:text="Add Item"
+                android:textColor="#FFFFFF"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:backgroundTint="@null" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
