@@ -35,17 +35,17 @@ public class TopSellingAdapter extends RecyclerView.Adapter<TopSellingAdapter.Vi
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         TopSellingItem item = topSellingItems.get(position);
-        holder.itemNameText.setText(item.getName());
-        holder.itemQuantityText.setText("Sold: " + item.getQuantity());
+        holder.topItemNameText.setText(item.getName());
+        holder.topItemQuantityText.setText("Sold: " + item.getQuantity());
 
         if (item.getImageUrl() != null && !item.getImageUrl().isEmpty()) {
             Glide.with(context)
                     .load(item.getImageUrl())
                     .placeholder(android.R.drawable.ic_menu_gallery)
                     .error(android.R.drawable.ic_menu_gallery)
-                    .into(holder.itemImage);
+                    .into(holder.topItemImage);
         } else {
-            holder.itemImage.setImageResource(android.R.drawable.ic_menu_gallery);
+            holder.topItemImage.setImageResource(android.R.drawable.ic_menu_gallery);
         }
     }
 
@@ -55,14 +55,14 @@ public class TopSellingAdapter extends RecyclerView.Adapter<TopSellingAdapter.Vi
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        ImageView itemImage;
-        TextView itemNameText, itemQuantityText;
+        ImageView topItemImage;
+        TextView topItemNameText, topItemQuantityText;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            itemImage = itemView.findViewById(R.id.topItemImage);
-            itemNameText = itemView.findViewById(R.id.topItemNameText);
-            itemQuantityText = itemView.findViewById(R.id.topItemQuantityText);
+            topItemImage = itemView.findViewById(R.id.top_item_image);
+            topItemNameText = itemView.findViewById(R.id.top_item_name_text);
+            topItemQuantityText = itemView.findViewById(R.id.top_item_quantity_text);
         }
     }
 }
