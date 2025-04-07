@@ -16,9 +16,7 @@ import com.example.ktop_food_app_store.databinding.ActivityLoginBinding;
 import com.example.ktop_food_app_store.model.data.remote.FirebaseAuthData;
 import com.example.ktop_food_app_store.model.repository.AuthRepository;
 
-import com.example.ktop_food_app_store.view.activity.AddItemActivity;
-
-import com.example.ktop_food_app_store.view.activity.StatisticActivity;
+import com.example.ktop_food_app_store.view.activity.HomeActivity;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -93,7 +91,7 @@ public class LoginActivity extends AppCompatActivity {
                         if (role != null && "admin".equals(role)) {
                             // Vai trò là admin, cho phép đăng nhập
                             Toast.makeText(LoginActivity.this, "Đăng nhập thành công với vai trò Admin", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(LoginActivity.this, AddItemActivity.class);
+                            Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                             startActivity(intent);
                             finish(); // Đóng LoginActivity
                         } else {
