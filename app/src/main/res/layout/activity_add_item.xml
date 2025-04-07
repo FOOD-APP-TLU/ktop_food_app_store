@@ -30,6 +30,7 @@
             android:fontFamily="@font/annapurna_sil"
             android:text="Add Item"
             android:textColor="#884F04"
+            android:textStyle="bold"
             android:textSize="32sp" />
     </LinearLayout>
 
