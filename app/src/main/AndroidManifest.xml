@@ -17,6 +17,16 @@
             android:exported="false" />
         <activity
             android:name=".view.activity.OrderProcessActivity"
+            android:name=".view.activity.EditItemActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.activity.FoodListActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.activity.OrderHistoryDetailsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.activity.OrderHistoryActivity"
             android:exported="false" />
         <activity
             android:name=".view.activity.HomeActivity"

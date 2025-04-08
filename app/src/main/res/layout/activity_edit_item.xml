@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:padding="16dp"
     android:background="#FFF1E2">
@@ -21,17 +21,14 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="5dp"
             android:src="@drawable/ic_back_arrow"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
             app:tint="#000000" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="56dp"
-
             android:fontFamily="@font/annapurna_sil"
-            android:text="Add Item"
+            android:text="Edit Item"
             android:textColor="#884F04"
             android:textSize="32sp"
             android:textStyle="bold" />
@@ -72,6 +69,7 @@
                 android:background="@drawable/edit_text_background"
                 android:hint="Item Price"
                 android:fontFamily="@font/annapurna_sil"
+                android:inputType="numberDecimal"
                 android:textColorHint="#80B57E35"
                 android:textSize="20dp"
                 android:padding="10dp" />
@@ -107,9 +105,7 @@
                         android:layout_gravity="end|center_vertical"
                         android:layout_marginEnd="10dp"
                         android:src="@drawable/ic_add" />
-
                 </FrameLayout>
-
             </FrameLayout>
 
             <ImageView
@@ -171,9 +167,7 @@
                                 android:layout_marginEnd="15dp"
                                 android:layout_marginBottom="5dp"
                                 android:src="@drawable/arrow_down" />
-
                         </FrameLayout>
-
                     </FrameLayout>
 
                     <TextView
@@ -182,7 +176,6 @@
                         android:layout_height="wrap_content"
                         android:textColor="#FF0000"
                         android:textSize="12sp" />
-
                 </LinearLayout>
 
                 <LinearLayout
@@ -225,9 +218,7 @@
                                 android:layout_marginEnd="10dp"
                                 android:layout_marginBottom="5dp"
                                 android:src="@drawable/arrow_down" />
-
                         </FrameLayout>
-
                     </FrameLayout>
 
                     <TextView
@@ -236,7 +227,6 @@
                         android:layout_height="wrap_content"
                         android:textColor="#FF0000"
                         android:textSize="12sp" />
-
                 </LinearLayout>
             </LinearLayout>
 
@@ -253,14 +243,24 @@
                 android:fontFamily="@font/annapurna_sil"
                 android:padding="15dp" />
 
+            <CheckBox
+                android:id="@+id/best_food_checkbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Best Food"
+                android:fontFamily="@font/annapurna_sil"
+                android:textColor="#884F04"
+                android:textSize="20sp"
+                android:layout_marginBottom="20dp" />
+
             <Button
-                android:id="@+id/add_item_button"
+                android:id="@+id/save_item_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/custom_bg_default"
                 android:fontFamily="@font/annapurna_sil"
                 android:layout_marginTop="30dp"
-                android:text="Add Item"
+                android:text="Save Item"
                 android:textColor="#FFFFFF"
                 android:textSize="24sp"
                 android:textStyle="bold"

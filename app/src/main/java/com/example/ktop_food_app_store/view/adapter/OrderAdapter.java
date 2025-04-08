@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,6 +17,8 @@ import com.example.ktop_food_app_store.model.data.entity.Order;
 import com.example.ktop_food_app_store.databinding.ItemOrderProcessBinding;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.example.ktop_food_app_store.databinding.ItemOrderHistoryBinding;
+//import com.example.ktop_food_app_store.databinding.ItemTrackOrdersBinding;
 
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
@@ -25,13 +28,13 @@ public class OrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
     public static final int VIEW_TYPE_ORDER_HISTORY = 1;
     public static final int VIEW_TYPE_ORDER_PROCESS = 2;
+
     private final List<Order> orderList;
     private final Context context;
     private final OnOrderClickListener listener;
     private final DecimalFormat decimalFormat;
-    private final int viewType; // To determine which layout to use
+    private final int viewType; 
     private DatabaseReference ordersRef;
-
 
     public OrderAdapter(Context context, List<Order> orderList, OnOrderClickListener listener, int viewType) {
         this.context = context;
@@ -45,7 +48,7 @@ public class OrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
     @Override
     public int getItemViewType(int position) {
-        return viewType; // Use the viewType passed in constructor
+        return viewType;
     }
 
     @NonNull
@@ -58,6 +61,9 @@ public class OrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         if (viewType == VIEW_TYPE_ORDER_PROCESS) {
             ItemOrderProcessBinding binding = ItemOrderProcessBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
             return new OrderProcessViewHolder(binding);
+        if (viewType == VIEW_TYPE_ORDER_HISTORY) {
+            ItemOrderHistoryBinding binding = ItemOrderHistoryBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
+            return new OrderHistoryViewHolder(binding);
         }
         throw new IllegalArgumentException("Invalid view type");
     }
@@ -70,6 +76,8 @@ public class OrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 //        }
         if (holder instanceof OrderProcessViewHolder) {
             ((OrderProcessViewHolder) holder).bind(order);
+        if (holder instanceof OrderHistoryViewHolder) {
+            ((OrderHistoryViewHolder) holder).bind(order);
         }
     }
 
@@ -118,6 +126,10 @@ public class OrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         private final ItemOrderProcessBinding binding;
 
         public OrderProcessViewHolder(ItemOrderProcessBinding binding) {
+    public class OrderHistoryViewHolder extends RecyclerView.ViewHolder {
+        private final ItemOrderHistoryBinding binding;
+
+        public OrderHistoryViewHolder(ItemOrderHistoryBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
         }
@@ -128,10 +140,16 @@ public class OrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             binding.totalAllProductPrice.setText(decimalFormat.format(order.getTotalPrice()) + " d");
             binding.txtTotalAllProduct.setText("(" + order.getItems().size() + " Products" + ")");
 
+            String allProduct = String.valueOf(order.getItems().size());
+            binding.totalAllProduct.setText("(" + allProduct + " Products):");
+            binding.totalAllProductPrice.setText(decimalFormat.format(order.getTotalPrice()) + " d");
+
+
             if (order.getItems() != null && !order.getItems().isEmpty()) {
                 CartItem item = order.getItems().get(0);
                 Glide.with(context)
                         .load(item.getImagePath())
+
                         .into(binding.productImage);
                 binding.productName.setText(item.getName());
                 binding.txtProductQuantity.setText("x" + item.getQuantity());
@@ -191,4 +209,38 @@ public class OrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             binding.getRoot().setOnClickListener(v -> listener.onOrderClick(order));
         }
     }
+                        .into(binding.productFirstImage);
+                binding.productName.setText(item.getName());
+                String quantityOfFirstProduct = String.valueOf(item.getQuantity());
+                binding.productQuantity.setText("x" + quantityOfFirstProduct);
+            }
+
+            binding.getRoot().setOnClickListener(v -> listener.onOrderClick(order));
+        }
+    }
+
+    // ViewHolder for Track Order
+//    public class TrackOrderViewHolder extends RecyclerView.ViewHolder {
+//        private final ItemTrackOrdersBinding binding;
+//
+//        public TrackOrderViewHolder(ItemTrackOrdersBinding binding) {
+//            super(binding.getRoot());
+//            this.binding = binding;
+//        }
+//
+//        public void bind(Order order) {
+//            binding.txtOrderId.setText(order.getOrderId());
+//            binding.txtOrderStatus.setText(order.getStatus());
+//            binding.totalAllProductPrice.setText(decimalFormat.format(order.getTotalPrice()) + " d");
+//
+//            if (order.getItems() != null && !order.getItems().isEmpty()) {
+//                CartItem item = order.getItems().get(0);
+//                Glide.with(context)
+//                        .load(item.getImagePath())
+//                        .into(binding.productFirstImage);
+//                binding.productName.setText(item.getName());
+//            }
+//            binding.getRoot().setOnClickListener(v -> listener.onOrderClick(order));
+//        }
+//    }
 }

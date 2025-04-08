@@ -36,240 +36,138 @@
             android:textStyle="bold" />
     </RelativeLayout>
 
+    <!-- Monthly Revenue Section (using txt_balance) -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:padding="8dp"
+        android:layout_marginTop="16dp"
         android:background="@drawable/custom_bg_home"
         android:gravity="center"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:padding="12dp">
 
         <TextView
             android:id="@+id/txt_balance"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="30,000,000d"
+            android:layout_marginEnd="24dp"
             android:fontFamily="@font/annapurna_sil"
+            android:text="30,000,000đ"
             android:textColor="@color/white"
-            android:textSize="26sp"
-            android:layout_marginEnd="35dp"
-            android:layout_gravity="center_vertical"
+            android:textSize="28sp"
             android:textStyle="bold" />
 
         <ImageView
             android:id="@+id/icon_house"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:layout_marginStart="8dp"
             android:contentDescription="House Icon"
-            app:srcCompat="@drawable/ic_home"
+            android:src="@drawable/ic_home"
             tools:ignore="TouchTargetSizeCheck" />
     </LinearLayout>
 
+    <!-- Date Section -->
     <LinearLayout
-        android:layout_height="wrap_content"
         android:layout_width="wrap_content"
-        android:layout_marginTop="24dp">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
 
         <ImageView
             android:id="@+id/icon_calendar"
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
             android:contentDescription="Calendar Icon"
             app:srcCompat="@drawable/ic_calendar"
-            android:layout_marginEnd="16dp"
-            tools:ignore="TouchTargetSizeCheck"/>
+            tools:ignore="TouchTargetSizeCheck" />
 
         <TextView
             android:id="@+id/txt_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="08/03/2025"
-            android:layout_gravity="center_vertical"
+            android:text="07/04/2025"
             android:textColor="#B57E35"
-            android:textStyle="bold"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:textStyle="bold" />
     </LinearLayout>
 
-    <!-- Revenue Section -->
+    <!-- Daily Revenue and Sales Increase Section -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="180dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="16dp"
         android:background="@drawable/custom_bg_home_statistic"
-        android:orientation="horizontal">
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="12dp">
 
-        <!-- Left side: Bar chart with labels -->
+        <!-- Daily Revenue -->
+        <TextView
+            android:id="@+id/txt_revenue_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Daily Revenue:"
+            android:textColor="#B57E35"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/txt_revenue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="1,569,324"
+            android:textColor="#78420A"
+            android:textSize="32sp"
+            android:textStyle="bold" />
+
+        <!-- Sales Increase -->
+        <TextView
+            android:id="@+id/txt_sales_increase_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:fontFamily="@font/annapurna_sil"
+            android:text="Sales increase:"
+            android:textColor="#B57E35"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
         <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:gravity="center_horizontal"
-            android:paddingBottom="8dp">
-
-            <!-- Bar chart -->
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="140dp"
-                android:orientation="horizontal"
-                android:gravity="bottom">
-
-                <!-- Friday Bar -->
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:gravity="center_horizontal">
-                    <View
-                        android:layout_width="20dp"
-                        android:layout_height="100dp"
-                        android:background="#DDB27A" />
-                </LinearLayout>
-
-                <!-- Saturday Bar with 5% highlight -->
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_marginStart="16dp">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="5%"
-                        android:textColor="#B57E35"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
-                    <LinearLayout
-                        android:layout_width="20dp"
-                        android:layout_height="120dp"
-                        android:orientation="vertical">
-                        <View
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:background="#B57E35" />
-                        <View
-                            android:layout_width="20dp"
-                            android:layout_height="100dp"
-                            android:background="#DDB27A" />
-                    </LinearLayout>
-                </LinearLayout>
-            </LinearLayout>
-
-            <!-- Horizontal Divider -->
-            <View
-                android:layout_width="90dp"
-                android:layout_height="1dp"
-                android:layout_marginTop="4dp"
-                android:background="#B57E35" />
-
-            <!-- Labels (Fr and Sa) -->
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_horizontal"
-                android:layout_marginTop="4dp">
-
-                <!-- Friday Label -->
-                <TextView
-                    android:layout_width="20dp"
-                    android:layout_height="wrap_content"
-                    android:text="Fr"
-                    android:textColor="@color/text_color_secondary"
-                    android:textSize="14sp" />
-
-                <!-- Saturday Label -->
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:text="Sa"
-                    android:textColor="@color/text_color_secondary"
-                    android:textSize="14sp" />
-            </LinearLayout>
-        </LinearLayout>
-
-        <View
-            android:layout_width="1dp"
-            android:layout_height="match_parent"
-            android:background="#B57E35" />
-        <!-- Right side: Revenue and Sales Increase -->
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:orientation="vertical"
-            android:padding="8dp"
-            android:paddingStart="16dp">
-
-            <!-- Daily Revenue -->
-            <TextView
-                android:id="@+id/txt_revenue_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Daily Revenue:"
-                android:textColor="#B57E35"
-                android:textSize="20sp"
-                android:textStyle="bold"/>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/txt_revenue"
+                android:id="@+id/txt_percentage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:text="1,569,324"
-                android:textColor="#78420A"
-                android:textSize="32sp"
+                android:fontFamily="@font/annapurna_sil"
+                android:text="5%"
+                android:textColor="#44B535"
+                android:textSize="24sp"
                 android:textStyle="bold" />
 
-            <!-- Sales Increase -->
-            <TextView
-                android:id="@+id/txt_sales_increase_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="Sales increase:"
-                android:fontFamily="@font/annapurna_sil"
-                android:textColor="#B57E35"
-                android:textSize="16sp"
-                android:textStyle="bold"/>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:layout_marginTop="4dp">
-
-                <TextView
-                    android:id="@+id/txt_percentage"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/annapurna_sil"
-                    android:text="5%"
-                    android:textColor="#44B535"
-                    android:textSize="24sp"
-                    android:textStyle="bold" />
-
-                <ImageView
-                    android:id="@+id/icon_arrow_up"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_marginStart="4dp"
-                    android:contentDescription="Arrow Up"
-                    app:srcCompat="@drawable/ic_up"
-                    tools:ignore="TouchTargetSizeCheck" />
-            </LinearLayout>
+            <ImageView
+                android:id="@+id/icon_arrow_up"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginStart="4dp"
+                android:contentDescription="Arrow Up"
+                app:srcCompat="@drawable/ic_up"
+                tools:ignore="TouchTargetSizeCheck" />
         </LinearLayout>
     </LinearLayout>
-    <!-- Main content with food list and categories -->
+
+    <!-- Categories Section -->
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="24dp"
         android:orientation="vertical">
 
         <TextView
@@ -283,10 +181,10 @@
 
         <GridView
             android:id="@+id/grid_view_categories"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:horizontalSpacing="16dp"
-            android:layout_marginLeft="16dp"
+            android:layout_marginStart="10dp"
             android:numColumns="4"
             android:stretchMode="columnWidth"
             android:verticalSpacing="16dp" />
