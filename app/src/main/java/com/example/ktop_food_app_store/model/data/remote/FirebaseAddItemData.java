@@ -2,6 +2,8 @@ package com.example.ktop_food_app_store.model.data.remote;
 
 import androidx.lifecycle.MutableLiveData;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.MutableData;
@@ -26,25 +28,33 @@ public class FirebaseAddItemData {
             public Transaction.Result doTransaction(MutableData mutableData) {
                 Long counter = mutableData.getValue(Long.class);
                 if (counter == null) {
-                    counter = 0L;
+                    counter = 0L; // Khởi tạo nếu chưa có
                 }
-                counter++;
-                mutableData.setValue(counter);
-                String newFoodId = "F" + String.format("%03d", counter);
-                newFood.put("foodId", newFoodId);
-
-                foodsRef.push().setValue(newFood);
+                counter++; // Tăng bộ đếm
+                mutableData.setValue(counter); // Chỉ cập nhật counter
                 return Transaction.success(mutableData);
             }
 
             @Override
-            public void onComplete(com.google.firebase.database.DatabaseError databaseError, boolean committed, com.google.firebase.database.DataSnapshot dataSnapshot) {
+            public void onComplete(DatabaseError databaseError, boolean committed, DataSnapshot dataSnapshot) {
                 if (databaseError != null) {
-                    result.setValue("Failed to add item: " + databaseError.getMessage());
-                } else if (committed) {
-                    result.setValue("Item added successfully");
+                    result.setValue("Thêm món ăn thất bại: " + databaseError.getMessage());
+                    return;
+                }
+                if (committed && dataSnapshot != null) {
+                    Long counter = dataSnapshot.getValue(Long.class);
+                    if (counter != null) {
+                        String newFoodId = "F" + String.format("%03d", counter);
+                        newFood.put("foodId", newFoodId);
+                        System.out.println("Counter: " + counter + ", New Food ID: " + newFoodId); // Thêm log
+                        foodsRef.child(newFoodId).setValue(newFood)
+                                .addOnSuccessListener(aVoid -> result.setValue("Thêm món ăn thành công"))
+                                .addOnFailureListener(e -> result.setValue("Thêm món ăn thất bại: " + e.getMessage()));
+                    } else {
+                        result.setValue("Lỗi: Không lấy được giá trị bộ đếm.");
+                    }
                 } else {
-                    result.setValue("Transaction failed. Please try again.");
+                    result.setValue("Giao dịch thất bại. Vui lòng thử lại.");
                 }
             }
         });

@@ -1,6 +1,5 @@
 package com.example.ktop_food_app_store.viewmodel;
 
-
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -9,7 +8,6 @@ import android.widget.AdapterView;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
-
 
 import com.example.ktop_food_app_store.model.repository.AddItemRepository;
 
@@ -30,42 +28,23 @@ public class AddItemViewModel extends ViewModel {
     private String itemName = "";
     private String itemPrice = "";
     private String urlImage = "";
-    private String time = "Select Time";
-    private String category = "Select Category";
+    private String time = "Chọn thời gian";
+    private String category = "Chọn danh mục";
     private String description = "";
 
     public AddItemViewModel(AddItemRepository repository) {
         this.repository = repository;
     }
 
-    public LiveData<Boolean> getIsFormValid() {
-        return isFormValid;
-    }
+    public LiveData<Boolean> getIsFormValid() { return isFormValid; }
+    public LiveData<String> getItemNameError() { return itemNameError; }
+    public LiveData<String> getItemPriceError() { return itemPriceError; }
+    public LiveData<String> getUrlImageError() { return urlImageError; }
+    public LiveData<String> getTimeError() { return timeError; }
+    public LiveData<String> getCategoryError() { return categoryError; }
+    public LiveData<String> getAddItemResult() { return addItemResult; }
 
-    public LiveData<String> getItemNameError() {
-        return itemNameError;
-    }
-
-    public LiveData<String> getItemPriceError() {
-        return itemPriceError;
-    }
-
-    public LiveData<String> getUrlImageError() {
-        return urlImageError;
-    }
-
-    public LiveData<String> getTimeError() {
-        return timeError;
-    }
-
-    public LiveData<String> getCategoryError() {
-        return categoryError;
-    }
-
-    public LiveData<String> getAddItemResult() {
-        return addItemResult;
-    }
-
+    // Phương thức getTextWatcher
     public TextWatcher getTextWatcher() {
         return new TextWatcher() {
             @Override
@@ -81,6 +60,7 @@ public class AddItemViewModel extends ViewModel {
         };
     }
 
+    // Phương thức getSpinnerListener
     public AdapterView.OnItemSelectedListener getSpinnerListener() {
         return new AdapterView.OnItemSelectedListener() {
             @Override
@@ -134,30 +114,30 @@ public class AddItemViewModel extends ViewModel {
         boolean isValid = true;
 
         if (itemName.isEmpty()) {
-            itemNameError.setValue("Please enter item name");
+            itemNameError.setValue("Vui lòng nhập tên món ăn");
             isValid = false;
         }
         if (itemPrice.isEmpty()) {
-            itemPriceError.setValue("Please enter item price");
+            itemPriceError.setValue("Vui lòng nhập giá món ăn");
             isValid = false;
         }
         if (urlImage.isEmpty()) {
-            urlImageError.setValue("Please enter image URL");
+            urlImageError.setValue("Vui lòng nhập URL hình ảnh");
             isValid = false;
         }
-        if (time.equals("Select Time")) {
-            timeError.setValue("Please select preparation time");
+        if (time.equals("Chọn thời gian")) {
+            timeError.setValue("Vui lòng chọn thời gian chuẩn bị");
             isValid = false;
         }
-        if (category.equals("Select Category")) {
-            categoryError.setValue("Please select category");
+        if (category.equals("Chọn danh mục")) {
+            categoryError.setValue("Vui lòng chọn danh mục");
             isValid = false;
         }
         if (isValid) {
             try {
                 Double.parseDouble(itemPrice.replaceAll("[^0-9.]", ""));
             } catch (NumberFormatException e) {
-                itemPriceError.setValue("Invalid price format");
+                itemPriceError.setValue("Định dạng giá không hợp lệ");
                 isValid = false;
             }
         }
@@ -166,7 +146,7 @@ public class AddItemViewModel extends ViewModel {
     }
 
     public void addItem() {
-        if (!isFormValid.getValue()) {
+        if (!Boolean.TRUE.equals(isFormValid.getValue())) {
             return;
         }
 
@@ -195,7 +175,7 @@ public class AddItemViewModel extends ViewModel {
         Map<String, Object> newFood = new HashMap<>();
         newFood.put("bestFood", false);
         newFood.put("categoryId", categoryId);
-        newFood.put("description", description.isEmpty() ? "No description" : description);
+        newFood.put("description", description.isEmpty() ? "Không có mô tả" : description);
         newFood.put("imagePath", urlImage);
         newFood.put("price", itemPrice);
         newFood.put("star", 4.0);
