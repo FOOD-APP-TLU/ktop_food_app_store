@@ -7,7 +7,6 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.lifecycle.ViewModelProvider;
-
 import com.example.ktop_food_app_store.model.data.remote.FirebaseAuthData;
 import com.example.ktop_food_app_store.model.repository.AuthRepository;
 import com.example.ktop_food_app_store.model.repository.CategoryRepository;

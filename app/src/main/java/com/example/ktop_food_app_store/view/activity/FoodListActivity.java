@@ -2,6 +2,7 @@ package com.example.ktop_food_app_store.view.activity;
 
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
@@ -106,8 +107,9 @@ public class FoodListActivity extends AppCompatActivity implements FoodAdapter.F
 
     @Override
     public void onEditClick(Food food) {
-        Toast.makeText(this, "Chuyển đến trang chỉnh sửa món: " + food.getTitle(), Toast.LENGTH_SHORT).show();
-        // TODO: Thêm Intent để chuyển đến màn hình chỉnh sửa nếu cần
+        Intent intent = new Intent(this, EditItemActivity.class);
+        intent.putExtra("food", food);
+        startActivity(intent);
     }
 
     @Override
