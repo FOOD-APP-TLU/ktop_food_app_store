@@ -13,6 +13,10 @@
         android:theme="@style/Theme.Ktop_food_app_store"
         tools:targetApi="31">
         <activity
+            android:name=".view.activity.OrderProcessDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.activity.OrderProcessActivity"
             android:name=".view.activity.EditItemActivity"
             android:exported="false" />
         <activity
