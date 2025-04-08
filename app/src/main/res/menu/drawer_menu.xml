@@ -4,9 +4,9 @@
         android:icon="@drawable/ic_add_item"
         android:title="Add item" />
     <item
-        android:id="@+id/nav_track_order"
+        android:id="@+id/nav_order_process"
         android:icon="@drawable/track_order_icon"
-        android:title="Track order" />
+        android:title="Order process" />
     <item
         android:id="@+id/nav_order_history"
         android:icon="@drawable/purchase_order_icon"

@@ -37,7 +37,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="48dp"
                 android:fontFamily="@font/annapurna_sil_bold"
-                android:text="Order process details"
+                android:text="Order details"
                 android:textAlignment="center"
                 android:textColor="#884F04"
                 android:textSize="32sp"
