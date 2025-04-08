@@ -8,6 +8,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.ktop_food_app_store.model.data.entity.CartItem;
@@ -15,6 +16,7 @@ import com.example.ktop_food_app_store.model.data.entity.Order;
 import com.example.ktop_food_app_store.view.adapter.OrderHistoryDetailsAdapter;
 import com.example.ktop_food_app_store.R;
 import com.example.ktop_food_app_store.databinding.ActivityOrderHistoryDetailsBinding;
+import com.example.ktop_food_app_store.viewmodel.UserInforViewModel;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -37,7 +39,7 @@ public class OrderHistoryDetailsActivity extends AppCompatActivity {
     private OrderHistoryDetailsAdapter itemAdapter;
     private Order order;
     private DecimalFormat decimalFormat;
-    private DatabaseReference usersRef;
+    private UserInforViewModel userInforViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,14 +53,14 @@ public class OrderHistoryDetailsActivity extends AppCompatActivity {
         symbols.setGroupingSeparator('.');
         decimalFormat = new DecimalFormat("#,###d", symbols);
 
-        usersRef = FirebaseDatabase
-                .getInstance("https://ktop-food-database-default-rtdb.asia-southeast1.firebasedatabase.app")
-                .getReference("users");
+        userInforViewModel = new ViewModelProvider(this).get(UserInforViewModel.class);
 
         // Call methods
         if (!loadOrderData()) {
             return;
         }
+
+        observeUserInfo();
         displayOrderDetails();
         setupRecyclerView();
         setupListeners();
@@ -80,20 +82,7 @@ public class OrderHistoryDetailsActivity extends AppCompatActivity {
         binding.txtOrderId.setText(order.getOrderId());
         binding.txtOrderStatus.setText(order.getStatus());
 
-        usersRef.child(order.getUid())
-                .child("profile").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                String customerName = dataSnapshot.child("displayName").getValue(String.class);
-                String phoneNumber = dataSnapshot.child("phone").getValue(String.class);
-                binding.txtNameCustomer.setText(customerName != null ? customerName : "N/A");
-                binding.txtPhone.setText(phoneNumber != null ? phoneNumber : "N/A");
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-            }
-        });
+        userInforViewModel.getUserInfo(order.getUid());
 
         binding.txtAddress.setText(order.getAddress());
 
@@ -122,6 +111,20 @@ public class OrderHistoryDetailsActivity extends AppCompatActivity {
         binding.txtTotalPriceItemsAmount.setText(decimalFormat.format(order.getTotalPrice()));
         binding.txtDiscountAmount.setText(decimalFormat.format(order.getDiscount()));
         binding.txtTotalPaymentDetails.setText(decimalFormat.format(subtotal));
+    }
+
+    private void observeUserInfo() {
+        userInforViewModel.getUserNameLiveData().observe(this, name -> {
+            binding.txtNameCustomer.setText(name);
+        });
+
+        userInforViewModel.getPhoneNumberLiveData().observe(this, phone -> {
+            binding.txtPhone.setText(phone);
+        });
+
+        userInforViewModel.getErrorLiveData().observe(this, error -> {
+            Toast.makeText(this, "Lỗi tải thông tin người dùng: " + error, Toast.LENGTH_SHORT).show();
+        });
     }
 
     // Setup RecyclerView

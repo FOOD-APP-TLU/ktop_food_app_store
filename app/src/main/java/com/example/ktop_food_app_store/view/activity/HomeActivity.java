@@ -236,7 +236,7 @@ public class HomeActivity extends AppCompatActivity {
             if (itemId == R.id.nav_add_item) {
                 Intent intent = new Intent(HomeActivity.this, AddItemActivity.class);
                 startActivity(intent);
-            } else if (itemId == R.id.nav_track_order) {
+            } else if (itemId == R.id.nav_order_process) {
                 Intent intent = new Intent(HomeActivity.this, OrderProcessActivity.class );
                 startActivity(intent);
             } else if (itemId == R.id.nav_order_history) {
