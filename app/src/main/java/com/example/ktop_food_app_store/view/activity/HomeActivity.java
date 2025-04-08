@@ -97,7 +97,8 @@ public class HomeActivity extends AppCompatActivity {
                 Intent intent = new Intent(HomeActivity.this, AddItemActivity.class );
                 startActivity(intent);
             } else if (itemId == R.id.nav_track_order) {
-                Toast.makeText(HomeActivity.this, "Chuyen den trang Track Order", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(HomeActivity.this, OrderProcessActivity.class );
+                startActivity(intent);
             } else if (itemId == R.id.nav_order_history) {
                 Toast.makeText(HomeActivity.this, "Chuyen den trang Order History", Toast.LENGTH_SHORT).show();
             }
