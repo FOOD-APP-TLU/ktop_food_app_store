@@ -161,6 +161,17 @@ public class OrderProcessDetailActivity extends AppCompatActivity {
     private void setupListeners() {
         binding.btnBack.setOnClickListener(v -> finish());
 
+        binding.btnOrderDelivery.setOnClickListener(v -> {
+            ordersRef.child(order.getOrderId()).child("status").setValue("shipping")
+                    .addOnSuccessListener(unused -> {
+                        Toast.makeText(this, "Đơn hàng đang trong quá trình vận chuyển", Toast.LENGTH_SHORT).show();
+                    })
+                    .addOnFailureListener(e -> {
+                        Toast.makeText(this, "Lỗi: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    });
+            finish(); // Quay lại màn hình Order Process
+        });
+
         binding.btnOrderCompleted.setOnClickListener(v -> {
             ordersRef.child(order.getOrderId()).child("status").setValue("completed")
                     .addOnSuccessListener(unused -> {
@@ -175,7 +186,7 @@ public class OrderProcessDetailActivity extends AppCompatActivity {
         binding.btnCancelOrder.setOnClickListener(v -> {
             ordersRef.child(order.getOrderId()).child("status").setValue("cancelled")
                     .addOnSuccessListener(unused -> {
-                        Toast.makeText(this, "Đơn hàng đã huỷ", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, "Đơn hàng đã bị huỷ", Toast.LENGTH_SHORT).show();
                         increaseUserCancelCount();
                     })
                     .addOnFailureListener(e -> {
