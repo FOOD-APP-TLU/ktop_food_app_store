@@ -186,7 +186,7 @@ public class OrderProcessDetailActivity extends AppCompatActivity {
         binding.btnCancelOrder.setOnClickListener(v -> {
             ordersRef.child(order.getOrderId()).child("status").setValue("cancelled")
                     .addOnSuccessListener(unused -> {
-                        Toast.makeText(this, "Đơn hàng đã bị huỷ", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, "Đơn hàng đã huỷ", Toast.LENGTH_SHORT).show();
                         increaseUserCancelCount();
                     })
                     .addOnFailureListener(e -> {

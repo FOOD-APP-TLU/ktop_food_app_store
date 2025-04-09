@@ -27,7 +27,7 @@ public class OrderHistoryDetailsAdapter extends RecyclerView.Adapter<OrderHistor
         this.itemList = itemList;
         DecimalFormatSymbols symbols = new DecimalFormatSymbols();
         symbols.setGroupingSeparator('.');
-        decimalFormat = new DecimalFormat("#,###d", symbols);
+        decimalFormat = new DecimalFormat("#,###", symbols);
     }
 
     @NonNull
@@ -50,8 +50,8 @@ public class OrderHistoryDetailsAdapter extends RecyclerView.Adapter<OrderHistor
         holder.binding.quantityTextView.setText(String.valueOf(item.getQuantity()));
 
         // Set price and total price
-        holder.binding.priceTextView.setText(decimalFormat.format(item.getPrice()));
-        holder.binding.totalItemPriceTextView.setText(decimalFormat.format(item.getTotalPrice()));
+        holder.binding.priceTextView.setText(decimalFormat.format(item.getPrice()) + " d");
+        holder.binding.totalItemPriceTextView.setText(decimalFormat.format(item.getTotalPrice()) + " d");
 
         // Load image using Glide
         Glide.with(context)
