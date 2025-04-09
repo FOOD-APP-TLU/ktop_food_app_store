@@ -156,7 +156,7 @@ public class OrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                         .child("status")
                         .setValue("shipping")
                         .addOnSuccessListener(unused -> {
-                            Toast.makeText(context, "Đơn hàng đã chuyển sang trạng thái Shipping", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(context, "Đơn hàng đang trong quá trình vận chuyển", Toast.LENGTH_SHORT).show();
                             order.setStatus("shipping");
                             notifyItemChanged(getAdapterPosition());
                         })
