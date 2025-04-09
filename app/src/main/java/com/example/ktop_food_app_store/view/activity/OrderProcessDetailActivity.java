@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -184,16 +185,24 @@ public class OrderProcessDetailActivity extends AppCompatActivity {
         });
 
         binding.btnCancelOrder.setOnClickListener(v -> {
-            ordersRef.child(order.getOrderId()).child("status").setValue("cancelled")
-                    .addOnSuccessListener(unused -> {
-                        Toast.makeText(this, "Đơn hàng đã huỷ", Toast.LENGTH_SHORT).show();
-                        increaseUserCancelCount();
+            new AlertDialog.Builder(OrderProcessDetailActivity.this)
+                    .setTitle("Huỷ đơn hàng")
+                    .setMessage("Xác nhận đơn hàng này đã bị hủy")
+                    .setPositiveButton("Có", (dialog, which) -> {
+                        ordersRef.child(order.getOrderId()).child("status").setValue("cancelled")
+                                .addOnSuccessListener(unused -> {
+                                    Toast.makeText(OrderProcessDetailActivity.this, "Đơn hàng đã được huỷ", Toast.LENGTH_SHORT).show();
+                                    increaseUserCancelCount();
+                                    finish(); // Quay lại màn hình xử lý đơn hàng
+                                })
+                                .addOnFailureListener(e -> {
+                                    Toast.makeText(OrderProcessDetailActivity.this, "Lỗi: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                });
                     })
-                    .addOnFailureListener(e -> {
-                        Toast.makeText(this, "Lỗi: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                    });
-            finish(); // Quay lại màn hình Order Process
+                    .setNegativeButton("Không", (dialog, which) -> dialog.dismiss())
+                    .show();
         });
+
     }
 
     private void increaseUserCancelCount() {
