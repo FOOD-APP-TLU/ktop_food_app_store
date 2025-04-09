@@ -51,7 +51,7 @@ public class OrderHistoryDetailsActivity extends AppCompatActivity {
 
         DecimalFormatSymbols symbols = new DecimalFormatSymbols();
         symbols.setGroupingSeparator('.');
-        decimalFormat = new DecimalFormat("#,###d", symbols);
+        decimalFormat = new DecimalFormat("#,###", symbols);
 
         userInforViewModel = new ViewModelProvider(this).get(UserInforViewModel.class);
 
@@ -107,10 +107,10 @@ public class OrderHistoryDetailsActivity extends AppCompatActivity {
             binding.paymentIcon.setVisibility(View.GONE);
         }
 
-        double subtotal = order.getTotalPrice() - order.getDiscount();
-        binding.txtTotalPriceItemsAmount.setText(decimalFormat.format(order.getTotalPrice()));
-        binding.txtDiscountAmount.setText(decimalFormat.format(order.getDiscount()));
-        binding.txtTotalPaymentDetails.setText(decimalFormat.format(subtotal));
+        double totalPriceOfItems = order.getTotalPrice() + order.getDiscount();
+        binding.txtTotalPriceItemsAmount.setText(decimalFormat.format(totalPriceOfItems) + " d");
+        binding.txtDiscountAmount.setText(decimalFormat.format(order.getDiscount()) + " d");
+        binding.txtTotalPaymentDetails.setText(decimalFormat.format(order.getTotalPrice()) + " d");
     }
 
     private void observeUserInfo() {
