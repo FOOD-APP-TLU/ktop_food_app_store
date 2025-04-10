@@ -150,6 +150,7 @@ public class OrderProcessDetailActivity extends AppCompatActivity {
         if ("pending".equalsIgnoreCase(status)) {
             binding.btnOrderDelivery.setVisibility(View.VISIBLE);
             binding.btnCancelOrder.setVisibility(View.VISIBLE);
+            binding.btnCancelOrder.setText("Cancel");
             binding.btnOrderCompleted.setVisibility(View.GONE);
         } else if ("shipping".equalsIgnoreCase(status)) {
             binding.btnOrderDelivery.setVisibility(View.GONE);
@@ -163,26 +164,42 @@ public class OrderProcessDetailActivity extends AppCompatActivity {
         binding.btnBack.setOnClickListener(v -> finish());
 
         binding.btnOrderDelivery.setOnClickListener(v -> {
-            ordersRef.child(order.getOrderId()).child("status").setValue("shipping")
-                    .addOnSuccessListener(unused -> {
-                        Toast.makeText(this, "Đơn hàng đang trong quá trình vận chuyển", Toast.LENGTH_SHORT).show();
+            new AlertDialog.Builder(this)
+                    .setTitle("Xác nhận vận chuyển đơn hàng")
+                    .setMessage("Bạn có chắc chắn muốn chuyển đơn hàng sang trạng thái vận chuyển?")
+                    .setPositiveButton("Đồng ý", (dialog, which) -> {
+                        ordersRef.child(order.getOrderId()).child("status").setValue("shipping")
+                                .addOnSuccessListener(unused -> {
+                                    Toast.makeText(this, "Đơn hàng đang trong quá trình vận chuyển", Toast.LENGTH_SHORT).show();
+                                    finish(); // Quay lại màn hình Order Process
+                                })
+                                .addOnFailureListener(e -> {
+                                    Toast.makeText(this, "Lỗi: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                });
                     })
-                    .addOnFailureListener(e -> {
-                        Toast.makeText(this, "Lỗi: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                    });
-            finish(); // Quay lại màn hình Order Process
+                    .setNegativeButton("Hủy", (dialog, which) -> dialog.dismiss())
+                    .show();
         });
 
+
         binding.btnOrderCompleted.setOnClickListener(v -> {
-            ordersRef.child(order.getOrderId()).child("status").setValue("completed")
-                    .addOnSuccessListener(unused -> {
-                        Toast.makeText(this, "Đơn hàng đã hoàn thành", Toast.LENGTH_SHORT).show();
+            new AlertDialog.Builder(this)
+                    .setTitle("Xác nhận hoàn thành đơn hàng")
+                    .setMessage("Bạn có chắc chắn đơn hàng này đã hoàn thành?")
+                    .setPositiveButton("Hoàn thành", (dialog, which) -> {
+                        ordersRef.child(order.getOrderId()).child("status").setValue("completed")
+                                .addOnSuccessListener(unused -> {
+                                    Toast.makeText(this, "Đơn hàng đã hoàn thành", Toast.LENGTH_SHORT).show();
+                                    finish(); // Quay lại màn hình Order Process
+                                })
+                                .addOnFailureListener(e -> {
+                                    Toast.makeText(this, "Lỗi: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                });
                     })
-                    .addOnFailureListener(e -> {
-                        Toast.makeText(this, "Lỗi: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                    });
-            finish(); // Quay lại màn hình Order Process
+                    .setNegativeButton("Hủy", (dialog, which) -> dialog.dismiss())
+                    .show();
         });
+
 
         binding.btnCancelOrder.setOnClickListener(v -> {
             new AlertDialog.Builder(OrderProcessDetailActivity.this)
