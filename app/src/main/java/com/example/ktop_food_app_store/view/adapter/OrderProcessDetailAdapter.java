@@ -51,8 +51,8 @@ public class OrderProcessDetailAdapter extends RecyclerView.Adapter<OrderProcess
         holder.binding.txtQuantity.setText(String.valueOf(item.getQuantity()));
 
         // Set price and total price
-        holder.binding.txtPrice.setText(decimalFormat.format(item.getPrice()) + " d");
-        holder.binding.txtTotalItemPrice.setText(decimalFormat.format(item.getTotalPrice()) + " d");
+        holder.binding.txtPrice.setText(decimalFormat.format(item.getPrice()) + " đ");
+        holder.binding.txtTotalItemPrice.setText(decimalFormat.format(item.getTotalPrice()) + " đ");
 
         // Load image using Glide
         Glide.with(context)

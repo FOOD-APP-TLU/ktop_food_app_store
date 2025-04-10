@@ -50,8 +50,8 @@ public class OrderHistoryDetailsAdapter extends RecyclerView.Adapter<OrderHistor
         holder.binding.quantityTextView.setText(String.valueOf(item.getQuantity()));
 
         // Set price and total price
-        holder.binding.priceTextView.setText(decimalFormat.format(item.getPrice()) + " d");
-        holder.binding.totalItemPriceTextView.setText(decimalFormat.format(item.getTotalPrice()) + " d");
+        holder.binding.priceTextView.setText(decimalFormat.format(item.getPrice()) + " đ");
+        holder.binding.totalItemPriceTextView.setText(decimalFormat.format(item.getTotalPrice()) + " đ");
 
         // Load image using Glide
         Glide.with(context)

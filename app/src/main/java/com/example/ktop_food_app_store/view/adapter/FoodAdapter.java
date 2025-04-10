@@ -46,7 +46,7 @@ public class FoodAdapter extends RecyclerView.Adapter<FoodAdapter.FoodViewHolder
 
         // Sử dụng binding để gán dữ liệu
         holder.binding.foodTitle.setText(food.getTitle());
-        holder.binding.foodPrice.setText(decimalFormat.format(food.getPrice()) + " d");
+        holder.binding.foodPrice.setText(decimalFormat.format(food.getPrice()) + " đ");
         holder.binding.foodTime.setText(food.getTimeValue());
         // Thêm Glide để tải hình ảnh
         Glide.with(context).load(food.getImagePath()).into(holder.binding.foodImage);

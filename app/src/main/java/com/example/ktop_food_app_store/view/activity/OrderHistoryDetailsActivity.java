@@ -108,9 +108,9 @@ public class OrderHistoryDetailsActivity extends AppCompatActivity {
         }
 
         double totalPriceOfItems = order.getTotalPrice() + order.getDiscount();
-        binding.txtTotalPriceItemsAmount.setText(decimalFormat.format(totalPriceOfItems) + " d");
-        binding.txtDiscountAmount.setText(decimalFormat.format(order.getDiscount()) + " d");
-        binding.txtTotalPaymentDetails.setText(decimalFormat.format(order.getTotalPrice()) + " d");
+        binding.txtTotalPriceItemsAmount.setText(decimalFormat.format(totalPriceOfItems) + " đ");
+        binding.txtDiscountAmount.setText(decimalFormat.format(order.getDiscount()) + " đ");
+        binding.txtTotalPaymentDetails.setText(decimalFormat.format(order.getTotalPrice()) + " đ");
     }
 
     private void observeUserInfo() {
