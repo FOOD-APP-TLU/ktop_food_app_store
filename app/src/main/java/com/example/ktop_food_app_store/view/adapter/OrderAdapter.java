@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -152,33 +153,57 @@ public class OrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
             // Xử lý nút Delivery
             binding.btnDelivery.setOnClickListener(v -> {
-                ordersRef.child(order.getOrderId())
-                        .child("status")
-                        .setValue("shipping")
-                        .addOnSuccessListener(unused -> {
-                            Toast.makeText(context, "Đơn hàng đang trong quá trình vận chuyển", Toast.LENGTH_SHORT).show();
-                            order.setStatus("shipping");
-                            notifyItemChanged(getAdapterPosition());
+                // Hiển thị AlertDialog hỏi người dùng xác nhận
+                new AlertDialog.Builder(context)
+                        .setTitle("Xác nhận vận chuyển đơn hàng")
+                        .setMessage("Bạn có chắc chắn muốn chuyển đơn hàng sang trạng thái vận chuyển?")
+                        .setPositiveButton("Có", (dialog, which) -> {
+                            // Nếu người dùng xác nhận, thực hiện update lên Firebase
+                            ordersRef.child(order.getOrderId())
+                                    .child("status")
+                                    .setValue("shipping")
+                                    .addOnSuccessListener(unused -> {
+                                        Toast.makeText(context, "Đơn hàng đang trong quá trình vận chuyển", Toast.LENGTH_SHORT).show();
+                                        order.setStatus("shipping");
+                                        notifyItemChanged(getAdapterPosition());
+                                    })
+                                    .addOnFailureListener(e -> Toast.makeText(context, "Lỗi: " + e.getMessage(), Toast.LENGTH_SHORT).show());
                         })
-                        .addOnFailureListener(e -> Toast.makeText(context, "Lỗi: " + e.getMessage(), Toast.LENGTH_SHORT).show());
+                        .setNegativeButton("Không", (dialog, which) -> {
+                            // Nếu người dùng không xác nhận thì đóng dialog, không làm gì thêm
+                            dialog.dismiss();
+                        })
+                        .show();
             });
+
 
             // Xử lý nút Completed
             binding.btnOrderCompleted.setOnClickListener(v -> {
-                ordersRef.child(order.getOrderId())
-                        .child("status")
-                        .setValue("completed")
-                        .addOnSuccessListener(unused -> {
-                            Toast.makeText(context, "Đơn hàng đã hoàn thành", Toast.LENGTH_SHORT).show();
-                            order.setStatus("completed");
-                            int pos = getAdapterPosition();
-                            if (pos != RecyclerView.NO_POSITION) {
-                                orderList.remove(pos);
-                                notifyItemRemoved(pos);
-                            }
+                new AlertDialog.Builder(context)
+                        .setTitle("Xác nhận hoàn thành đơn hàng")
+                        .setMessage("Bạn có chắc chắn đơn hàng này đã hoàn thành?")
+                        .setPositiveButton("Có", (dialog, which) -> {
+                            // Nếu người dùng xác nhận, cập nhật trạng thái đơn hàng
+                            ordersRef.child(order.getOrderId())
+                                    .child("status")
+                                    .setValue("completed")
+                                    .addOnSuccessListener(unused -> {
+                                        Toast.makeText(context, "Đơn hàng đã hoàn thành", Toast.LENGTH_SHORT).show();
+                                        order.setStatus("completed");
+                                        int pos = getAdapterPosition();
+                                        if (pos != RecyclerView.NO_POSITION) {
+                                            orderList.remove(pos);
+                                            notifyItemRemoved(pos);
+                                        }
+                                    })
+                                    .addOnFailureListener(e ->
+                                            Toast.makeText(context, "Lỗi: " + e.getMessage(), Toast.LENGTH_SHORT).show()
+                                    );
                         })
-                        .addOnFailureListener(e -> Toast.makeText(context, "Lỗi: " + e.getMessage(), Toast.LENGTH_SHORT).show());
+                        .setNegativeButton("Không", (dialog, which) -> dialog.dismiss())
+                        .show();
             });
+
 
             binding.getRoot().setOnClickListener(v -> listener.onOrderClick(order));
         }
