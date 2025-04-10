@@ -1,47 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:padding="16dp"
-    android:background="#FFF1E2">
+    android:background="#FFF5E1">
 
-    <!-- Header đã chỉnh sửa -->
-    <LinearLayout
-        android:layout_width="match_parent"
+    <!-- Back Arrow -->
+    <ImageView
+        android:id="@+id/back_button"
+        android:layout_width="44dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:src="@drawable/ic_back_arrow"
+        android:clickable="true"
+        android:contentDescription="Back"
+        android:focusable="true"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="#000000" />
+
+    <!-- Title -->
+    <TextView
+        android:id="@+id/add_item_title"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/annapurna_sil"
+        android:text="Add Item"
+        android:textColor="#78420A"
+        android:textSize="32sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/back_button"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:clickable="true"
-            android:contentDescription="Back"
-            android:focusable="true"
-            android:padding="8dp"
-            android:src="@drawable/ic_back_arrow" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="48dp"
-            android:fontFamily="@font/annapurna_sil_bold"
-            android:text="Add Item"
-            android:textAlignment="center"
-            android:textColor="#884F04"
-            android:textSize="32sp"
-            android:textStyle="bold" />
-    </LinearLayout>
-
-    <!-- Phần còn lại giữ nguyên -->
+    <!-- ScrollView for the remaining content -->
     <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scrollbars="none">
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:scrollbars="none"
+        android:padding="16dp"
+        app:layout_constraintTop_toBottomOf="@id/add_item_title"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -108,9 +112,7 @@
                         android:layout_gravity="end|center_vertical"
                         android:layout_marginEnd="10dp"
                         android:src="@drawable/ic_add" />
-
                 </FrameLayout>
-
             </FrameLayout>
 
             <ImageView
@@ -172,9 +174,7 @@
                                 android:layout_marginEnd="15dp"
                                 android:layout_marginBottom="5dp"
                                 android:src="@drawable/arrow_down" />
-
                         </FrameLayout>
-
                     </FrameLayout>
 
                     <TextView
@@ -183,7 +183,6 @@
                         android:layout_height="wrap_content"
                         android:textColor="#FF0000"
                         android:textSize="12sp" />
-
                 </LinearLayout>
 
                 <LinearLayout
@@ -226,9 +225,7 @@
                                 android:layout_marginEnd="10dp"
                                 android:layout_marginBottom="5dp"
                                 android:src="@drawable/arrow_down" />
-
                         </FrameLayout>
-
                     </FrameLayout>
 
                     <TextView
@@ -237,7 +234,6 @@
                         android:layout_height="wrap_content"
                         android:textColor="#FF0000"
                         android:textSize="12sp" />
-
                 </LinearLayout>
             </LinearLayout>
 
@@ -268,4 +264,4 @@
                 app:backgroundTint="@null" />
         </LinearLayout>
     </ScrollView>
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -114,9 +114,9 @@ public class OrderProcessDetailActivity extends AppCompatActivity {
         }
 
         double totalPayment = order.getTotalPrice() + order.getDiscount();
-        binding.txtTotalPriceItemsAmount.setText(decimalFormat.format(totalPayment) + " d");
-        binding.txtDiscountAmount.setText(decimalFormat.format(order.getDiscount()) + " d");
-        binding.txtTotalPayment.setText(decimalFormat.format(order.getTotalPrice()) + " d");
+        binding.txtTotalPriceItemsAmount.setText(decimalFormat.format(totalPayment) + " đ");
+        binding.txtDiscountAmount.setText(decimalFormat.format(order.getDiscount()) + " đ");
+        binding.txtTotalPayment.setText(decimalFormat.format(order.getTotalPrice()) + " đ");
     }
 
     private void observeUserInfo() {

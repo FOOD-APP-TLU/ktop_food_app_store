@@ -175,7 +175,7 @@ public class HomeActivity extends AppCompatActivity {
 
                 // Định dạng số tiền
                 DecimalFormat formatter = new DecimalFormat("#,###");
-                binding.home.txtBalance.setText(formatter.format(monthlyRevenue) + "đ"); // Doanh thu tháng
+                binding.home.txtBalance.setText(formatter.format(monthlyRevenue) + " đ"); // Doanh thu tháng
                 binding.home.txtRevenue.setText(formatter.format(dailyRevenue)); // Doanh thu ngày
 
                 // Tính phần trăm tăng trưởng

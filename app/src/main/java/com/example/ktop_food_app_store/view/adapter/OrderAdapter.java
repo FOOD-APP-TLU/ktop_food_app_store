@@ -97,7 +97,7 @@ public class OrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         public void bind(Order order) {
             binding.txtOrderId.setText(order.getOrderId());
             binding.txtOrderStatus.setText(order.getStatus());
-            binding.totalAllProductPrice.setText(decimalFormat.format(order.getTotalPrice()) + " d");
+            binding.totalAllProductPrice.setText(decimalFormat.format(order.getTotalPrice()) + " đ");
             binding.totalAllProduct.setText("(" + order.getItems().size() + " Products)");
 
             if (order.getItems() != null && !order.getItems().isEmpty()) {
@@ -126,7 +126,7 @@ public class OrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         public void bind(Order order) {
             binding.txtOrderId.setText(order.getOrderId());
             binding.txtOrderStatus.setText(order.getStatus());
-            binding.totalAllProductPrice.setText(decimalFormat.format(order.getTotalPrice()) + " d");
+            binding.totalAllProductPrice.setText(decimalFormat.format(order.getTotalPrice()) + " đ");
             binding.totalAllProduct.setText("(" + order.getItems().size() + " Products)");
 
             if (order.getItems() != null && !order.getItems().isEmpty()) {
