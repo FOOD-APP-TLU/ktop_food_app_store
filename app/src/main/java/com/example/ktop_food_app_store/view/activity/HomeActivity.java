@@ -70,13 +70,17 @@ public class HomeActivity extends AppCompatActivity {
 
         // Cập nhật ngày hiện tại và nhãn ngày trong biểu đồ
         updateCurrentDate();
-
         setupViewModels();
         handleMenuButton();
         handleNavigationMenu();
         handleBackUpButton();
         handleLogoutButton();
         fetchRevenueData(); // Lấy dữ liệu doanh thu
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        fetchRevenueData();
     }
 
     private void updateCurrentDate() {
